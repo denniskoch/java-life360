@@ -4,7 +4,7 @@ public class Circles {
 
     public Circle[] circles;
 
-    public int Count() {
+    public int count() {
         return  this.circles.length;
     }
 

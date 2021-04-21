@@ -22,4 +22,9 @@ public class Circle {
 
     public Member[] members;
 
+    public Member getMember(int index) {
+
+        return members[index];
+        
+    }
 }

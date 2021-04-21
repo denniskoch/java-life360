@@ -101,7 +101,7 @@ public class Client {
 
     }
 
-    public String ApiHttpGet(String uri) {
+    public String apiHttpGet(String uri) {
 
         try {
 
@@ -137,16 +137,15 @@ public class Client {
 
     }
 
-    public Circles GetCircles() {
+    public Circles getCircles() {
 
         String uri = API_BASE_URL + CIRCLES_PATH;
-        String responseString = ApiHttpGet(uri);
+        String responseString = apiHttpGet(uri);
         Circles circles = null;
 
         if (responseString != null) {
 
-            System.out.println(responseString);
-
+            //System.out.println(responseString);
 
             try {
                 circles = objectMapper.readValue(responseString, Circles.class);
@@ -160,15 +159,15 @@ public class Client {
 
     }
 
-    public Circle GetCircle(String circleId) {
+    public Circle getCircle(String circleId) {
 
         String uri = API_BASE_URL + CIRCLE_PATH + circleId;
-        String responseString = ApiHttpGet(uri);
+        String responseString = apiHttpGet(uri);
         Circle circle = null;
 
         if (responseString != null) {
 
-            System.out.println(responseString);
+            //System.out.println(responseString);
 
             try {
 
