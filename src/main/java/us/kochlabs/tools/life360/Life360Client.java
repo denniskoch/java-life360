@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Life360 Client class
  */
-public class Client {
+public class Life360Client {
 
     static final String AUTH_CONSTANT = "cFJFcXVnYWJSZXRyZTRFc3RldGhlcnVmcmVQdW1hbUV4dWNyRUh1YzptM2ZydXBSZXRSZXN3ZXJFQ2hBUHJFOTZxYWtFZHI0Vg==";
     static final String API_BASE_URL = "https://api.life360.com/v3/";
@@ -48,7 +48,7 @@ public class Client {
      * @param username Life360 username
      * @param password Life 360 password
      */
-    public Client(String username, String password) {
+    public Life360Client(String username, String password) {
 
         this.username = username;
         this.password = password;
@@ -63,7 +63,7 @@ public class Client {
      * 
      * @return The result of the logon process
      */
-    public boolean Authenticate() {
+    public boolean authenticate() {
 
         String uri = API_BASE_URL + TOKEN_PATH;
         HttpPost httpPost = new HttpPost(uri);
