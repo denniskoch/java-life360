@@ -6,7 +6,7 @@ public class MemberLocation {
 
     public double longitude;
 
-    public int accuracy;
+    public float accuracy;
 
     public int startTimestamp;
 

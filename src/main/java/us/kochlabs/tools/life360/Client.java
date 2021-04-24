@@ -2,15 +2,17 @@ package us.kochlabs.tools.life360;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import us.kochlabs.tools.life360.auth.Bearer;
@@ -20,6 +22,9 @@ import us.kochlabs.tools.life360.circles.Circles;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Life360 Client class
+ */
 public class Client {
 
     static final String AUTH_CONSTANT = "cFJFcXVnYWJSZXRyZTRFc3RldGhlcnVmcmVQdW1hbUV4dWNyRUh1YzptM2ZydXBSZXRSZXN3ZXJFQ2hBUHJFOTZxYWtFZHI0Vg==";
@@ -34,20 +39,30 @@ public class Client {
 
     private String bearerToken;
 
-    private DefaultHttpClient httpClient;
+    private HttpClient httpClient;
 
     private ObjectMapper objectMapper;
 
+    /**
+     * 
+     * @param username Life360 username
+     * @param password Life 360 password
+     */
     public Client(String username, String password) {
 
         this.username = username;
         this.password = password;
         this.bearerToken = null;
-        this.httpClient = new DefaultHttpClient();
+        this.httpClient = HttpClientBuilder.create().build();
         this.objectMapper = new ObjectMapper();
 
     }
 
+    /**
+     * Authenticates to Life360's API and obtains the bearer token for all future API calls.
+     * 
+     * @return The result of the logon process
+     */
     public boolean Authenticate() {
 
         String uri = API_BASE_URL + TOKEN_PATH;
@@ -101,6 +116,12 @@ public class Client {
 
     }
 
+    /**
+     * Performs the HTTP request with given URI, constructs headers for Life360 authentication
+     * 
+     * @param uri URI to send the the request to
+     * @return JSON respons string from the request
+     */
     public String apiHttpGet(String uri) {
 
         try {
@@ -137,7 +158,12 @@ public class Client {
 
     }
 
-    public Circles getCircles() {
+    /**
+     * Get all Life360 Circles for the account
+     * 
+     * @return All circles the subscription is a member/owner of
+     */
+    public Circles getAllCircles() {
 
         String uri = API_BASE_URL + CIRCLES_PATH;
         String responseString = apiHttpGet(uri);
@@ -159,7 +185,13 @@ public class Client {
 
     }
 
-    public Circle getCircle(String circleId) {
+    /**
+     * Retrieve a Life360 from the API
+     * 
+     * @param circleId
+     * @return Requested Life360 circle
+     */
+    public Circle getCircleById(String circleId) {
 
         String uri = API_BASE_URL + CIRCLE_PATH + circleId;
         String responseString = apiHttpGet(uri);
